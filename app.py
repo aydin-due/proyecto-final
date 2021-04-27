@@ -22,6 +22,24 @@ def logout():
         session.pop('username',None)
         return redirect('/')
 
+@app.route('/register', methods=['GET','POST']) #falta poder modificar datos de usuario
+def register():                                
+    error = None
+    if request.method == 'POST':
+        if (request.form['username'] not in diccionario_usuarios):
+            username, password, lenguajes = request.form['username'], request.form['password'], request.form['lenguajes']
+            diccionario_usuarios[username] = {}
+            diccionario_usuarios[username]['password'] = password
+            diccionario_usuarios[username]['lista'] = lenguajes.split(', ')
+            with open('diccionario.json', 'w') as fp:
+                json.dump(diccionario_usuarios, fp)
+            session['username'] = username
+            return redirect('/')
+        else:
+            return render_template('register.html', error='Usuario ya registrado, inicie sesión')
+    else:   
+        return render_template('register.html', error=None)      
+
 @app.route('/login', methods=['GET','POST']) 
 def login():                                
     error = None
@@ -40,24 +58,6 @@ def login():
                 return render_template('login.html', error='Username incorrecto')
     else:   
         return render_template('login.html', error=None)
-
-@app.route('/register', methods=['GET','POST']) 
-def register():                                
-    error = None
-    if request.method == 'POST':
-        if (request.form['username'] not in diccionario_usuarios):
-            username, password, lenguajes = request.form['username'], request.form['password'], request.form['lenguajes']
-            diccionario_usuarios[username] = {}
-            diccionario_usuarios[username]['password'] = password
-            diccionario_usuarios[username]['lista'] = lenguajes.split(', ')
-            with open('diccionario.json', 'w') as fp:
-                json.dump(diccionario_usuarios, fp)
-            session['username'] = username
-            return redirect('/')
-        else:
-            return render_template('register.html', error='Usuario ya registrado, inicie sesión')
-    else:   
-        return render_template('register.html', error=None)                         
 
 if __name__ == "__main__":
     app.run(debug=True)
