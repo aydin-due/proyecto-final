@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Registro de usuarios</title>
+</head>
+<body>
+    <div id="content">
+        <h1>Mi pagina con LOGIN</h1>
+         <h2>Por favor registre su user, password y lenguajes de programación favoritos</h2>
+         <br>
+         <form action="" method="post">
+                <input type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
+                <input type="password" placeholder="Password" name="password" value="{{request.form.password }}">
+                <input type="text" placeholder="Lenguajes" name="lenguajes" value="{{request.form.lenguajes }}">
+                <input class="btn btn-default" type="submit" value="Register">
+         </form>
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{ error }}</p>
+            {% endif %}
+    </div>
+    <div id="footer">
+    </div>
+</body>
+</html>
