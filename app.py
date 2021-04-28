@@ -16,13 +16,13 @@ def index():
         return render_template('index.html',username=user)
     return render_template('index.html')
 
-@app.route('/logout') #falta confirmar el cierre
+@app.route('/logout') #FALTA CONFIRMAR CIERRE
 def logout():
     if 'username' in session:
         session.pop('username',None)
         return redirect('/')
 
-@app.route('/register', methods=['GET','POST']) #falta poder modificar datos de usuario
+@app.route('/register', methods=['GET','POST']) #FALTA PODER MODIFICAR DATOS DE USUARIO
 def register():                                
     error = None
     if request.method == 'POST':
@@ -48,17 +48,14 @@ def register():
 def login():                                
     error = None
     if request.method == 'POST':
-        if (request.form['username'] in diccionario_usuarios):
-            username = request.form['username']
-            diccionario = diccionario_usuarios[username]
-            password = diccionario['password']
-            if (request.form['password'] == password):
-                session['username'] = request.form['username']
-                return redirect('/')
-            else:
-                return render_template('login.html', error='Password incorrecto')
-        else:
-                return render_template('login.html', error='Username incorrecto')
+        for user in diccionario_usuarios:
+            if diccionario_usuarios[user]['email'] == request.form['email']:
+                if diccionario_usuarios[user]['password'] == request.form['password']:
+                    session['username'] = user
+                    return redirect('/')
+                else:
+                    return render_template('login.html', error='Password incorrecto')
+        return render_template('login.html', error='Email incorrecto')
     else:   
         return render_template('login.html', error=None)
 
