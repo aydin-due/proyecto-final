@@ -10,8 +10,15 @@
             <input type="text" placeholder="frase" name="frase" value="{{ request.form.frase }}">
             <input type="text" placeholder="similitud" name="similitud" value="{{ request.form.similitud }}">
             <input class="btn btn-default" type="submit" value="Buscar">
-            {{ resultados }} 
         </form>
+        {%if resultados %}
+            <h2>Frase buscada: "{{frase}}"</h2>
+            <ul>
+                {%for i in range(len) %}
+                <li>{{  resultados[i] }}</li>
+                {%endfor %}
+            </ul>
+        {%endif%}
     </div>
     <div id="footer">
     </div>

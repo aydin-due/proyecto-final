@@ -71,7 +71,8 @@ def search():
         frase, similitud = request.form['frase'], float(request.form['similitud'])
         buscar_frases = frases.Buscador(frases_celebres,frase,similitud)
         resultados_busqueda = buscar_frases.buscar()
-        return render_template('search.html', resultados=resultados_busqueda)
+        longitud = len(resultados_busqueda)
+        return render_template('search.html', resultados=resultados_busqueda, frase = frase, len = longitud)
     else:   
         return render_template('search.html', resultados=None)
 

@@ -47,6 +47,7 @@ class Buscador:
                 año = linea[2]
                 distancia = Levenshtein.ratio(frase_lista, self.frase)
                 if distancia >= self.limite:
+                    distancia = round(distancia,2)
                     frases.append(frase_lista)
                     res = (distancia, frase_lista, pelicula, año)
                     distancias.append(res)
@@ -61,6 +62,7 @@ class Buscador:
         despliegue(distancias)
         print("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-+-+-")'''
 
+#todo lo de abajo no se ocupa, lo dejo por si a caso
 def carga_csv(archivo):
     lista = []
     try:
