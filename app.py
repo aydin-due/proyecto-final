@@ -26,8 +26,11 @@ def logout():
 def register():                                
     error = None
     if request.method == 'POST':
-        if (request.form['username'] not in diccionario_usuarios):
-            username, email, password = request.form['username'], request.form['email'], request.form['password']
+        username, email, password = request.form['username'], request.form['email'], request.form['password']
+        if (username not in diccionario_usuarios): #checar que el usuario no esté registrado
+            for username in diccionario_usuarios:
+                if diccionario_usuarios[username]['email'] == email: #checar que el correo no esté registrado
+                    return render_template('register.html', error='Correo ya registrado.')
             diccionario_usuarios[username] = {}
             diccionario_usuarios[username]['password'] = password
             diccionario_usuarios[username]['email'] = email
@@ -37,7 +40,7 @@ def register():
             session['username'] = username
             return redirect('/')
         else:
-            return render_template('register.html', error='Usuario ya registrado, inicie sesión')
+            return render_template('register.html', error='Usuario ya registrado.')
     else:   
         return render_template('register.html', error=None)      
 
@@ -45,7 +48,6 @@ def register():
 def login():                                
     error = None
     if request.method == 'POST':
-
         if (request.form['username'] in diccionario_usuarios):
             username = request.form['username']
             diccionario = diccionario_usuarios[username]

@@ -9,9 +9,9 @@
          <h2>Por favor registre su usuario, correo y contraseña.</h2>
          <br>
          <form action="" method="post">
-                <input type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
-                <input type="text" placeholder="Email" name="email" value="{{ request.form.email }}">
-                <input type="password" placeholder="Password" name="password" value="{{ request.form.password }}">
+                <input type="text" placeholder="username" name="username" value="{{ request.form.username }}">
+                <input type="text" placeholder="email" name="email" value="{{ request.form.email }}">
+                <input type="password" placeholder="password" name="password" value="{{ request.form.password }}">
                 <input class="btn btn-default" type="submit" value="Register">
          </form>
             {% if error %}
