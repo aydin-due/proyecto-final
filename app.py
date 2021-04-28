@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
 import secrets, json
+import frases
+import os
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -8,6 +10,9 @@ app.run(debug=True)
 
 with open('usuarios.json') as f:
     diccionario_usuarios = json.load(f)
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+frases_celebres = os.path.join(THIS_FOLDER, 'frases_celebres.csv')
 
 @app.route('/')
 def index():
@@ -58,6 +63,17 @@ def login():
         return render_template('login.html', error='Email incorrecto')
     else:   
         return render_template('login.html', error=None)
+
+@app.route('/search', methods=['GET','POST']) 
+def search():                             
+    resultados = None
+    if request.method == 'POST':
+        frase, similitud = request.form['frase'], float(request.form['similitud'])
+        buscar_frases = frases.Buscador(frases_celebres,frase,similitud)
+        resultados_busqueda = buscar_frases.buscar()
+        return render_template('search.html', resultados=resultados_busqueda)
+    else:   
+        return render_template('search.html', resultados=None)
 
 if __name__ == "__main__":
     app.run(debug=True)

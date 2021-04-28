@@ -8,14 +8,14 @@
         {% if username %}
         <h1>Bienvenido, {{ username }}</h1>
         <p><a href="/logout">Cerrar sesión</a></p> <!-- se puede hacer botón -->
-        <p><a href="search">Realice una búsqueda.</a></p> <!-- se puede hacer botón -->
-        <p><a href="frases">Consulta tus frases favoritas.</a></p> <!-- se puede hacer botón -->
+        <p><a href="/search">Realice una búsqueda.</a></p> <!-- se puede hacer botón -->
+        <p><a href="/frases">Consulta tus frases favoritas.</a></p> <!-- se puede hacer botón -->
 
         {% else %}
         <h1>¡Bienvenido al sitio!</h1>
-        <p><a href="login">Inicie sesión.</a></p> <!-- se puede hacer botón -->
-        <p><a href="search">Realice una búsqueda.</a></p> <!-- se puede hacer botón -->
-        <p><a href="register">Regístrese.</a></p> <!-- se puede hacer botón -->
+        <p><a href="/login">Inicie sesión.</a></p> <!-- se puede hacer botón -->
+        <p><a href="/search">Realice una búsqueda.</a></p> <!-- se puede hacer botón -->
+        <p><a href="/register">Regístrese.</a></p> <!-- se puede hacer botón -->
 
         {% endif %}  
     </div>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Búsqueda de frases célebres</title>
+</head>
+<body>
+    <div id="content">
+        <h1>Búsqueda de frases célebres</h1>
+        <form action="" method="post">
+            <input type="text" placeholder="frase" name="frase" value="{{ request.form.frase }}">
+            <input type="text" placeholder="similitud" name="similitud" value="{{ request.form.similitud }}">
+            <input class="btn btn-default" type="submit" value="Buscar">
+            {{ resultados }} 
+        </form>
+    </div>
+    <div id="footer">
+    </div>
+</body>
+</html>
