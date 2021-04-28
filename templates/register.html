@@ -10,13 +10,14 @@
          <br>
          <form action="" method="post">
                 <input type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
-                <input type="text" placeholder="Lenguajes" name="email" value="{{ request.form.email }}">
+                <input type="text" placeholder="Email" name="email" value="{{ request.form.email }}">
                 <input type="password" placeholder="Password" name="password" value="{{ request.form.password }}">
                 <input class="btn btn-default" type="submit" value="Register">
          </form>
             {% if error %}
                 <p class="error"><strong>Error:</strong> {{ error }}</p>
             {% endif %}
+        <p>¿Ya tienes una cuenta? <a href="login">Inicia sesión.</a></p>
     </div>
     <div id="footer">
     </div>

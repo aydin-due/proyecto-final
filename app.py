@@ -6,8 +6,9 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 app.run(debug=True)
 
-with open('diccionario.json') as f:
-  diccionario_usuarios = json.load(f)
+with open('usuarios.json') as f:
+    diccionario_usuarios = json.load(f)
+
 
 @app.route('/')
 def index():
@@ -27,11 +28,12 @@ def register():
     error = None
     if request.method == 'POST':
         if (request.form['username'] not in diccionario_usuarios):
-            username, password, lenguajes = request.form['username'], request.form['password'], request.form['lenguajes']
+            username, email, password = request.form['username'], request.form['email'], request.form['password']
             diccionario_usuarios[username] = {}
             diccionario_usuarios[username]['password'] = password
-            diccionario_usuarios[username]['lista'] = lenguajes.split(', ')
-            with open('diccionario.json', 'w') as fp:
+            diccionario_usuarios[username]['email'] = email
+            diccionario_usuarios[username]['frases'] = []
+            with open('usuarios.json', 'w') as fp:
                 json.dump(diccionario_usuarios, fp)
             session['username'] = username
             return redirect('/')
