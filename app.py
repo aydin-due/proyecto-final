@@ -65,13 +65,16 @@ def login():
         return render_template('login.html', error=None)
 
 @app.route('/search', methods=['GET','POST']) 
-def search():                             
+def search():               
     resultados = None
     if request.method == 'POST':
         frase, similitud = request.form['frase'], float(request.form['similitud'])
         buscar_frases = frases.Buscador(frases_celebres,frase,similitud)
         resultados_busqueda = buscar_frases.buscar()
         longitud = len(resultados_busqueda)
+        if 'username' in session:
+            user = session['username']
+            return render_template('search.html', resultados=resultados_busqueda, frase = frase, len = longitud, username=user)
         return render_template('search.html', resultados=resultados_busqueda, frase = frase, len = longitud)
     else:   
         return render_template('search.html', resultados=None)

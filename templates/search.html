@@ -6,6 +6,7 @@
 <body>
     <div id="content">
         <h1>Búsqueda de frases célebres</h1>
+         
         <form action="" method="post">
             <input type="text" placeholder="frase" name="frase" value="{{ request.form.frase }}">
             <input type="text" placeholder="similitud" name="similitud" value="{{ request.form.similitud }}">
@@ -16,7 +17,11 @@
             <ul>
                 {%for i in range(len) %}
                 <li><p>"{{  resultados[i][1] }}"</p>
-                    <p><i>{{  resultados[i][2] }}</i>, similitud: {{  resultados[i][0] }}</p></li>
+                    <p><i>{{  resultados[i][2] }}</i>, similitud: {{  resultados[i][0] }}</p>
+                    {% if username %}
+                    <p>agregar a favoritos</p>
+                    {% endif %}
+                </li>
                 {%endfor %}
             </ul>
         {%endif%}
