@@ -15,7 +15,8 @@
             <h2>Frase buscada: "{{frase}}"</h2>
             <ul>
                 {%for i in range(len) %}
-                <li>{{  resultados[i] }}</li>
+                <li><p>"{{  resultados[i][1] }}"</p>
+                    <p><i>{{  resultados[i][2] }}</i>, similitud: {{  resultados[i][0] }}</p></li>
                 {%endfor %}
             </ul>
         {%endif%}

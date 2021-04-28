@@ -49,7 +49,7 @@ class Buscador:
                 if distancia >= self.limite:
                     distancia = round(distancia,2)
                     frases.append(frase_lista)
-                    res = (distancia, frase_lista, pelicula, año)
+                    res = [distancia, frase_lista, pelicula, año]
                     distancias.append(res)
                     if pelicula not in peliculas:
                         peliculas.append(pelicula)
