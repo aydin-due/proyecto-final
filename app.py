@@ -9,7 +9,6 @@ app.run(debug=True)
 with open('usuarios.json') as f:
     diccionario_usuarios = json.load(f)
 
-
 @app.route('/')
 def index():
     if 'username' in session:
