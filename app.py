@@ -33,8 +33,8 @@ def register():
     if request.method == 'POST':
         username, email, password = request.form['username'], request.form['email'], request.form['password']
         if (username not in diccionario_usuarios): #checar que el usuario no esté registrado
-            for username in diccionario_usuarios:
-                if diccionario_usuarios[username]['email'] == email: #checar que el correo no esté registrado
+            for user in diccionario_usuarios:
+                if diccionario_usuarios[user]['email'] == email: #checar que el correo no esté registrado
                     return render_template('register.html', error='Correo ya registrado.')
             diccionario_usuarios[username] = {}
             diccionario_usuarios[username]['password'] = password
