@@ -5,6 +5,21 @@
 </head>
 <body>
     <div id="content">
+        {% if username %}
+        <h1>Modificar cuenta</h1>
+        <h2>Por favor ingresa tus datos y el campo que deseas modificar.</h2>
+        <br>
+        <form action="" method="post">
+               <input type="text" placeholder="username" name="username" value="{{ request.form.username }}">
+               <input type="text" placeholder="email" name="email" value="{{ request.form.email }}">
+               <input type="password" placeholder="password" name="password" value="{{ request.form.password }}">
+               <input class="btn btn-default" type="submit" value="Cambiar">
+        </form>
+           {% if error %}
+               <p class="error"><strong>Error:</strong> {{ error }}</p>
+           {% endif %}
+       <p><a href="/">Regresar al inicio.</a></p> 
+        {% else %}
         <h1>Registro de usuarios</h1>
         <h2>Por favor registre su usuario, correo y contraseña.</h2>
         <br>
@@ -17,8 +32,8 @@
            {% if error %}
                <p class="error"><strong>Error:</strong> {{ error }}</p>
            {% endif %}
-       <p>¿Ya tienes una cuenta? <a href="login">Inicia sesión.</a></p>  
-        
+       <p>¿Ya tienes una cuenta? <a href="login">Inicia sesión.</a></p> 
+        {% endif %}    
     </div>
     <div id="footer">
     </div>
