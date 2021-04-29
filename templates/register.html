@@ -6,22 +6,6 @@
 <body>
     <div id="content">
         <h1>Registro de usuarios</h1>
-        {% if username %}
-        <h2>Por favor ingresa tus datos y el campo que deseas modificar en donde corresponde.</h2>
-        <h3>Si deseas cambiar tu usuario, ingresa tu correo y contraseña, además del usuario que deseas.</h3>
-        <h3>Si deseas cambiar tu correo o contraseña, ingresa tu usuario, además del correo y contraseña que deseas.</h3>
-        <br>
-        <form action="" method="post">
-               <input type="text" placeholder="username" name="username" value="{{ request.form.username }}">
-               <input type="text" placeholder="email" name="email" value="{{ request.form.email }}">
-               <input type="password" placeholder="password" name="password" value="{{ request.form.password }}">
-               <input class="btn btn-default" type="submit" value="Cambiar">
-        </form>
-           {% if error %}
-               <p class="error"><strong>Error:</strong> {{ error }}</p>
-           {% endif %}
-       <p><a href="/">Regresar al inicio.</a></p>
-        {% else %}
         <h2>Por favor registre su usuario, correo y contraseña.</h2>
         <br>
         <form action="" method="post">

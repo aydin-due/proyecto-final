@@ -30,47 +30,24 @@ def logout():
 @app.route('/register', methods=['GET','POST']) #FALTA PODER MODIFICAR DATOS DE USUARIO
 def register():                                
     error = None
-    if 'username' in session:
-        user = session['username']
-        if request.method == 'POST':
-            username, email, password = request.form['username'], request.form['email'], request.form['password']
-            if (username not in diccionario_usuarios): #si cambiaron el usuario
-                if diccionario_usuarios[user]['email'] == email and diccionario_usuarios[user]['password'] == password: #checar que el correo y contraseña coinciden
-                    diccionario_usuarios[username] = diccionario_usuarios.pop(user)
-                    del diccionario_usuarios[user]
-                    with open('usuarios.json', 'w') as fp:
-                        json.dump(diccionario_usuarios, fp)
-                    session['username'] = username
-                    return redirect('/')
-                return render_template('register.html', error='No se puede cambiar el usuario si la contraseña y correo no coindicen con tu cuenta.', username=user)
-            else: #si no cambiaron el usuario, cambiar las llaves de éste
-                diccionario_usuarios[username]['password'] = password
-                diccionario_usuarios[username]['email'] = email
-                with open('usuarios.json', 'w') as fp:
-                    json.dump(diccionario_usuarios, fp)
-                session['username'] = username
-                return redirect('/')
-        else:   
-            return render_template('register.html', error=None, username=user)  
-    else:
-        if request.method == 'POST':
-            username, email, password = request.form['username'], request.form['email'], request.form['password']
-            if (username not in diccionario_usuarios): #checar que el usuario no esté registrado
-                for username in diccionario_usuarios:
-                    if diccionario_usuarios[username]['email'] == email: #checar que el correo no esté registrado
-                        return render_template('register.html', error='Correo ya registrado.')
-                diccionario_usuarios[username] = {}
-                diccionario_usuarios[username]['password'] = password
-                diccionario_usuarios[username]['email'] = email
-                diccionario_usuarios[username]['frases'] = []
-                with open('usuarios.json', 'w') as fp:
-                    json.dump(diccionario_usuarios, fp)
-                session['username'] = username
-                return redirect('/')
-            else:
-                return render_template('register.html', error='Usuario ya registrado.')
-        else:   
-            return render_template('register.html', error=None)
+    if request.method == 'POST':
+        username, email, password = request.form['username'], request.form['email'], request.form['password']
+        if (username not in diccionario_usuarios): #checar que el usuario no esté registrado
+            for username in diccionario_usuarios:
+                if diccionario_usuarios[username]['email'] == email: #checar que el correo no esté registrado
+                    return render_template('register.html', error='Correo ya registrado.')
+            diccionario_usuarios[username] = {}
+            diccionario_usuarios[username]['password'] = password
+            diccionario_usuarios[username]['email'] = email
+            diccionario_usuarios[username]['frases'] = []
+            with open('usuarios.json', 'w') as fp:
+                json.dump(diccionario_usuarios, fp)
+            session['username'] = username
+            return redirect('/')
+        else:
+            return render_template('register.html', error='Usuario ya registrado.')
+    else:   
+        return render_template('register.html', error=None)
 
 
 @app.route('/login', methods=['GET','POST']) 
