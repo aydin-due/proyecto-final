@@ -117,6 +117,7 @@ def search():
                 with open('usuarios.json', 'w') as fp:
                     json.dump(diccionario_usuarios, fp)
                 return redirect('/')
+            del diccionario_usuarios['busqueda']
             return render_template('search.html', error='Debes iniciar sesión para guardar frases favoritas.') 
         return render_template('search.html', error='No se q está pasando.') 
     else:   
