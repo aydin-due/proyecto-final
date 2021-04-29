@@ -3,7 +3,7 @@ import Levenshtein
 import argparse
 import os
 
-class Buscador: 
+class Buscador:
     archivo = None
     frase = None
     limite = None

@@ -21,6 +21,10 @@ def index():
         return render_template('index.html',username=user)
     return render_template('index.html')
 
+@app.route('/confirm') #CONFIRMA SI TE VAS A SALIR
+def confirm():
+    return render_template('confirm.html')
+
 @app.route('/logout') #FALTA CONFIRMAR CIERRE
 def logout():
     if 'username' in session:
