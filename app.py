@@ -14,6 +14,8 @@ with open('usuarios.json') as f:
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 frases_celebres = os.path.join(THIS_FOLDER, 'frases_celebres.csv')
 
+resultados_busqueda=[]
+
 @app.route('/')
 def index():
     if 'username' in session:
@@ -31,7 +33,7 @@ def logout():
         session.pop('username',None)
         return redirect('/')
 
-@app.route('/register', methods=['GET','POST']) #FALTA PODER MODIFICAR DATOS DE USUARIO
+@app.route('/register', methods=['GET','POST'])
 def register():                                
     error = None
     if 'username' in session:
@@ -94,15 +96,34 @@ def login():
 @app.route('/search', methods=['GET','POST']) 
 def search():               
     resultados = None
+    error = None
     if request.method == 'POST':
-        frase, similitud = request.form['frase'], float(request.form['similitud'])
-        buscar_frases = frases.Buscador(frases_celebres,frase,similitud)
-        resultados_busqueda = buscar_frases.buscar()
-        longitud = len(resultados_busqueda)
-        if 'username' in session:
-            user = session['username']
-            return render_template('search.html', resultados=resultados_busqueda, frase = frase, len = longitud, username=user)
-        return render_template('search.html', resultados=resultados_busqueda, frase = frase, len = longitud)
+        valor = request.form['boton']
+        if(valor=="Buscar"):
+            frase, similitud = request.form['frase'], float(request.form['similitud'])
+            buscar_frases = frases.Buscador(frases_celebres,frase,similitud)
+            resultados_busqueda = buscar_frases.buscar()
+            longitud = len(resultados_busqueda)
+            diccionario_usuarios['busqueda']=resultados_busqueda
+            with open('usuarios.json', 'w') as fp:
+                json.dump(diccionario_usuarios, fp)
+            if 'username' in session:
+                user = session['username']
+                return render_template('search.html', resultados=resultados_busqueda, frase = frase, len = longitud, username=user)
+            return render_template('search.html', resultados=resultados_busqueda, frase = frase, len = longitud) 
+        if(valor=="Agregar a favoritos"):
+            peliculas = request.form.getlist("indice")
+            if 'username' in session:
+                user = session['username']
+                for item in peliculas:
+                    diccionario_usuarios[user]['frases'].append(diccionario_usuarios['busqueda'][int(item)])
+                del diccionario_usuarios['busqueda']
+                with open('usuarios.json', 'w') as fp:
+                    json.dump(diccionario_usuarios, fp)
+                return redirect('/')
+            del diccionario_usuarios['busqueda']
+            return render_template('search.html', error='Debes iniciar sesión para guardar frases favoritas.') 
+        return render_template('search.html', error='No se q está pasando.') 
     else:   
         return render_template('search.html', resultados=None)
 

@@ -10,21 +10,23 @@
         <form action="" method="post">
             <input type="text" placeholder="frase" name="frase" value="{{ request.form.frase }}">
             <input type="text" placeholder="similitud" name="similitud" value="{{ request.form.similitud }}">
-            <input class="btn btn-default" type="submit" value="Buscar">
-        </form>
+            <input class="btn btn-default" type="submit" name='boton' value="Buscar">
+        
         {%if resultados %}
             <h2>Frase buscada: "{{frase}}"</h2>
             <ul>
                 {%for i in range(len) %}
-                <li><p>"{{  resultados[i][1] }}"</p>
-                    <p><i>{{  resultados[i][2] }}</i>, similitud: {{  resultados[i][0] }}</p>
-                    {% if username %}
-                    <p>agregar a favoritos</p>
-                    {% endif %}
-                </li>
+                    <input type="checkbox" id="id_{{i}}" name='indice' value="{{ i }}">
+                    <label for="id_{{i}}">"{{  resultados[i][1] }}"</label>
+                    <p>&nbsp;{{  resultados[i][2] }}</i>, similitud: {{  resultados[i][0] }}</p>
                 {%endfor %}
+                <input class="btn btn-default" type="submit" name='boton' value="Agregar a favoritos">
             </ul>
         {%endif%}
+        {%if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}</p>
+        {%endif%}
+    </form>
     </div>
     <div id="footer">
     </div>
