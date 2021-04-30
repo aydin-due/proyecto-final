@@ -127,5 +127,18 @@ def search():
     else:   
         return render_template('search.html', resultados=None)
 
+@app.route('/frases') #FRASES FAVORITAS
+def frases_fav():
+    resultados = None
+    error = None
+    with open('usuarios.json', 'w') as fp:
+        json.dump(diccionario_usuarios, fp)
+        if 'username' in session:
+            user = session['username']
+            favs = diccionario_usuarios[user]['frases'][0][1]
+            pelicula = diccionario_usuarios[user]['frases'][0][2]
+            return render_template('frases.html',frases_favs = favs,username = user, source = pelicula)
+        return render_template('frases.html')      
+
 if __name__ == "__main__":
     app.run(debug=True)
