@@ -27,7 +27,7 @@ def index():
 def confirm():
     return render_template('confirm.html')
 
-@app.route('/logout') #FALTA CONFIRMAR CIERRE
+@app.route('/logout') 
 def logout():
     if 'username' in session:
         session.pop('username',None)
@@ -129,18 +129,32 @@ def search():
     else:   
         return render_template('search.html', resultados=None)
 
-@app.route('/frases') #FRASES FAVORITAS
+@app.route('/frases', methods=['GET','POST']) #FRASES FAVORITAS
 def frases_fav():
+    user = session['username']
     resultados = None
     error = None
-    with open('usuarios.json', 'w') as fp:
-        json.dump(diccionario_usuarios, fp)
-        if 'username' in session:
-            user = session['username']
-            favs = diccionario_usuarios[user]['frases'][0][1]
-            pelicula = diccionario_usuarios[user]['frases'][0][2]
-            return render_template('frases.html',frases_favs = favs,username = user, source = pelicula)
-        return render_template('frases.html')      
+    if request.method == 'POST':
+        frases_borradas=[]
+        frases_favs=[]
+        frases = request.form.getlist("indice")
+        if user in diccionario_usuarios:
+            frases_favs = diccionario_usuarios[user]['frases']
+            for item in frases:
+                frases_borradas.append(diccionario_usuarios[user]['frases'][int(item)])
+            diccionario_usuarios[user]['frases'] = [x for x in frases_favs if x not in frases_borradas]
+            with open('usuarios.json', 'w') as fp:
+                json.dump(diccionario_usuarios, fp)
+            favs = diccionario_usuarios[user]['frases']
+            longitud = len(favs)
+            return render_template('frases.html', frases=favs, len=longitud, username=user)
+        return render_template('frases.html', error='Inicia sesión.') 
+    else:
+        if user in diccionario_usuarios:
+            favs = diccionario_usuarios[user]['frases']
+            longitud = len(favs)
+            return render_template('frases.html', frases=favs, len=longitud, username=user)
+        return render_template('frases.html', frases=None, len=0)   
 
 if __name__ == "__main__":
     app.run(debug=True)
