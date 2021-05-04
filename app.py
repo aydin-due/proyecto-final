@@ -104,6 +104,8 @@ def search():
             buscar_frases = frases.Buscador(frases_celebres,frase,similitud)
             resultados_busqueda = buscar_frases.buscar()
             longitud = len(resultados_busqueda)
+            if (longitud == 0):
+                return render_template('search.html', error='No se encontraron resultados para esa frase')
             diccionario_usuarios['busqueda']=resultados_busqueda
             with open('usuarios.json', 'w') as fp:
                 json.dump(diccionario_usuarios, fp)
