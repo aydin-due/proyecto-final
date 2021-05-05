@@ -6,8 +6,20 @@
 </head>
 <body>
     <div id="content">
-        <h1>Frases Favoritas</h1>
-        <h2>Frases favoritas: "{{frases_favs}}" de la pelicula "{{source}}"</h2>
+        <h1>Frases favoritas de {{username}}</h1>
+        <form action="" method="post">
+            <ul>
+                {%for i in range(len) %}
+                    <input type="checkbox" id="id_{{i}}" name='indice' value="{{ i }}">
+                    <label for="id_{{i}}">"{{  frases[i][1] }}"</label>
+                    <p>&nbsp;<strong>Fuente: </strong>{{  frases[i][2] }}</p>
+                {%endfor %}
+                <input class="btn btn-default" type="submit" name='boton' value="Eliminar">
+            </ul>
+        {%if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}</p>
+        {%endif%}
+    </form>
     </div>
     <div id="footer">
     </div>
