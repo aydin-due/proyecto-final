@@ -1,0 +1,51 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: auto;
+}
+
+body {
+    background-color: lightgoldenrodyellow;
+    font-family: 'Poppins', sans-serif;
+    
+}
+
+a{
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    
+}
+
+.links {
+
+}
+
+.btn {
+    background-color: black;
+    color: white;
+    padding: 4px;
+    margin-bottom: 4px;
+    text-align: center;
+    width: 200px;
+}
+.btn a {
+    text-decoration: none;
+    color: white;
+}
+.btn:hover {
+    background-color: white;
+    color: black;
+    border: .1px solid black;
+}
+.btn:hover a{
+    color: black;
+}
+
+.center {
+    text-align: center;
+}
