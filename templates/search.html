@@ -15,6 +15,7 @@
         
         {%if resultados %}
             <h2>Frase buscada: "{{frase}}"</h2>
+            {%if username %}
             <ul>
                 {%for i in range(len) %}
                     <input type="checkbox" id="id_{{i}}" name='indice' value="{{ i }}">
@@ -23,6 +24,16 @@
                 {%endfor %}
                 <input class="btn btn-default" type="submit" name='boton' value="Agregar a favoritos">
             </ul>
+            {%else%}
+            <ul>
+                {%for i in range(len) %}
+                <li><p>"{{  resultados[i][1] }}"</p>
+                <p><i>{{  resultados[i][2] }}</i>, similitud: {{  resultados[i][0] }}</p>
+                </li>
+                {%endfor %}
+            </ul>
+            {%endif%}
+            
         {%endif%}
         {%if error %}
             <p class="error"><strong>Error:</strong> {{ error }}</p>
