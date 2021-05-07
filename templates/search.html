@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <link rel="stylesheet" href="\static\styles.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <head>
     <title>Búsqueda de frases célebres</title>
 </head>
@@ -22,7 +23,9 @@
                     <label for="id_{{i}}">"{{  resultados[i][1] }}"</label>
                     <p>&nbsp;{{  resultados[i][2] }}</i>, similitud: {{  resultados[i][0] }}</p>
                 {%endfor %}
-                <input class="btn btn-default" type="submit" name='boton' value="Agregar a favoritos">
+                    <div class="input-icons">
+                        <input class="btn btn-default fixed" type="submit" name='boton' value="Agregar a favoritos">
+                    </div>
             </ul>
             {%else%}
             <ul>

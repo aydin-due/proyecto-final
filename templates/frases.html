@@ -8,13 +8,16 @@
     <div id="content">
         <h1>Frases favoritas de {{username}}</h1>
         <form action="" method="post">
-            <ul>
+            <ul class="center">
                 {%for i in range(len) %}
                     <input type="checkbox" id="id_{{i}}" name='indice' value="{{ i }}">
                     <label for="id_{{i}}">"{{  frases[i][1] }}"</label>
                     <p>&nbsp;<strong>Fuente: </strong>{{  frases[i][2] }}</p>
                 {%endfor %}
-                <input class="btn btn-default" type="submit" name='boton' value="Eliminar">
+                <input class="btn btn-default center" type="submit" name='boton' value="Eliminar">
+                <ul class="links center">    
+                    <li class="btn"><a href="/">Menú</a></a></li>
+                </ul>
             </ul>
         {%if error %}
             <p class="error"><strong>Error:</strong> {{ error }}</p>

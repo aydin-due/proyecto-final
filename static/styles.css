@@ -49,3 +49,9 @@ ul {
 .center {
     text-align: center;
 }
+
+.fixed {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
