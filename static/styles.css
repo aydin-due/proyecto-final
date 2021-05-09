@@ -22,9 +22,6 @@ ul {
   list-style: none;
 }
 
-/*
-BORRAR: estilos d mi novio
-*/
 .frases{
     display: flex;
     flex-direction: column;

@@ -114,11 +114,15 @@ def search():
                 return render_template('search.html', resultados=resultados_busqueda, frase = frase, len = longitud, username=user)
             return render_template('search.html', resultados=resultados_busqueda, frase = frase, len = longitud) 
         if(valor=="Agregar a favoritos"):
+            frasesnuevas = []
+            frasesfavs = []
             peliculas = request.form.getlist("indice")
             if 'username' in session:
                 user = session['username']
                 for item in peliculas:
-                    diccionario_usuarios[user]['frases'].append(diccionario_usuarios['busqueda'][int(item)])
+                    frasesnuevas = diccionario_usuarios['busqueda'][int(item)]
+                    frasesfavs = diccionario_usuarios[user]['frases']
+                frasesfavs = [x for x in frasesnuevas if x not in frasesfavs]
                 del diccionario_usuarios['busqueda']
                 with open('usuarios.json', 'w') as fp:
                     json.dump(diccionario_usuarios, fp)
