@@ -125,6 +125,7 @@ def search():
                 return redirect('/')
             del diccionario_usuarios['busqueda']
             return render_template('search.html', error='Debes iniciar sesión para guardar frases favoritas.') 
+        del diccionario_usuarios['busqueda']
         return render_template('search.html', error='No se q está pasando.') 
     else:   
         return render_template('search.html', resultados=None)
