@@ -131,7 +131,7 @@ def search():
                 for item in peliculas:
                     frasesnuevas = diccionario_usuarios['busqueda'][int(item)]
                     frasesfavs = diccionario_usuarios[user]['frases']
-                frasesfavs = [x for x in frasesnuevas if x not in frasesfavs]
+                diccionario_usuarios[user]['frases'] = [x for x in frasesnuevas if x not in frasesfavs]
                 del diccionario_usuarios['busqueda']
                 with open('usuarios.json', 'w') as fp:
                     json.dump(diccionario_usuarios, fp)
