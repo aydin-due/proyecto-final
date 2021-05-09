@@ -1,3 +1,12 @@
+#DUEÑAS SALMAN AYDIN BERENICE
+#CAZARES GALLEGOS ULISES VIDAL
+
+#INSTRUCCIONES:
+#En la terminal del ambiente de desarrollo4, dirigirse a la carpeta del archivo mediante el comando cd (ejemplo: cd proyecto-final)
+#Exportar el proyecto mediante el comando export FLASK_APP=app.py
+#Correr flask mediante el comando flask run
+#Copiar la dirección que resulta (http://127.0.0.1:5000) y pegarla en el navegador, lo que dirigirá al index del sitio del proyecto final
+
 from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
 import secrets, json
